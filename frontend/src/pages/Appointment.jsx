@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { AppContext } from './AppContext'; // Adjust the import based on your file structure
-import RelatedDoctors from './RelatedDoctors'; // Adjust the import based on your file structure
+import { AppContext } from '../context/AppContext'; // Adjust the import based on your file structure
+import RelatedDoctors from '../components/RelatedDoctors'; // Adjust the import based on your file structure
 
 const Appointment = () => {
     const { docId } = useParams();

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { assets } from '../assets/assets';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AppContext } from './AppContext'; // Adjust the import based on your file structure
+import { AppContext } from '../context/AppContext' // Adjust the import based on your file structure
 
 const Doctors = () => {
     const { speciality } = useParams();
