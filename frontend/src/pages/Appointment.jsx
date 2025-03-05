@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppContext } from '../context/AppContext'; // Adjust the import based on your file structure
 import RelatedDoctors from '../components/RelatedDoctors'; // Adjust the import based on your file structure
+import { assets } from '../assets/assets';
 
 const Appointment = () => {
     const { docId } = useParams();
@@ -15,24 +16,23 @@ const Appointment = () => {
 
     const fetchDocInfo = async () => {
         const docInfo = doctors.find(doc => doc.id === docId);
-        setDocInfo(docInfo);
-        console.log(docInfo);
-    };
+        setDocInfo(docInfo)
+    }
 
     const getAvailableSlots = async () => {
-        setDocSlots([]);
+        setDocSlots([])
 
         // Getting current date
-        let today = new Date();
+        let today = new Date()
 
         for (let i = 0; i < 7; i++) {
-            let currentDate = new Date(today);
-            currentDate.setDate(today.getDate() + i);
+            let currentDate = new Date(today)
+            currentDate.setDate(today.getDate() + i)
 
             // Setting end time of the date with index
-            let endTime = new Date();
-            endTime.setDate(today.getDate() + i);
-            endTime.setHours(21, 0, 0, 0);
+            let endTime = new Date()
+            endTime.setDate(today.getDate() + i)
+            endTime.setHours(21, 0, 0, 0)
 
             // Setting hours
             if (today.getDate() === currentDate.getDate()) {
@@ -43,7 +43,7 @@ const Appointment = () => {
                 currentDate.setMinutes(0);
             }
 
-            let timeSlots = [];
+            let timeSlots = []
 
             while (currentDate < endTime) {
                 let formattedTime = currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -62,18 +62,16 @@ const Appointment = () => {
     };
 
     useEffect(() => {
-        fetchDocInfo();
-    }, [doctors, docId]);
+        fetchDocInfo()
+    }, [doctors, docId])
 
     useEffect(() => {
-        if (docInfo) {
-            getAvailableSlots();
-        }
-    }, [docInfo]);
+            getAvailableSlots()
+    }, [docInfo])
 
     useEffect(() => {
-        console.log(docSlots);
-    }, [docSlots]);
+        console.log(docSlots)
+    }, [docSlots])
 
     return docInfo && (
         <div>
@@ -86,7 +84,7 @@ const Appointment = () => {
                     {/* ----------------- Doc Info : name, degree, experience ---------- */}
                     <p className='flex items-center gap-2 text-2xl font-medium text-gray-900'>
                         {docInfo.name} 
-                        <img className='w-5' src={docInfo.specialityIcon} alt="" />
+                        <img className='w-5' src={assets.verified_icon} alt="" />
                     </p>
                     <div className='flex items-center gap-2 text-sm mt-1 text-gray-600'>
                         <p>{docInfo.degree} - {docInfo.speciality}</p>
@@ -96,7 +94,7 @@ const Appointment = () => {
                     {/* ----- Doctor About ----- */}
                     <div>
                         <p className='flex items-center gap-1 text-sm font-medium text-gray-900 mt-3'>
-                            About <img src={docInfo.aboutIcon} alt="" />
+                            About <img src={assets.info_icon} alt="" />
                         </p>
                         <p className='text-sm text-gray-500 max-w-[700px] mt-1'>{docInfo.about}</p>
                     </div>
@@ -107,7 +105,7 @@ const Appointment = () => {
             </div>
 
             {/* ------Booking slots-----*/}
-            <div className='sm:pl-4 mt-4 font-medium text-gray-700'>
+            <div className='sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700'>
                 <p>Booking Slots</p>
                 <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
                     {docSlots.length > 0 && docSlots.map((item, index) => (
