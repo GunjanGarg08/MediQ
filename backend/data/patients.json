@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "pat1",
+    "name": "John Updated",
+    "email": "john@example.com",
+    "password": "hashedpassword",
+    "age": 35,
+    "gender": "Male",
+    "phone": "+1112223333"
+  },
+  {
+    "_id": "pat2",
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "password": "hashedpassword",
+    "age": 28,
+    "gender": "Female",
+    "phone": "+0987654321"
+  }
+]
