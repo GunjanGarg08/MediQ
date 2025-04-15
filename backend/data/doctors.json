@@ -2,6 +2,8 @@
   {
     "_id": "doc1",
     "name": "Dr. Richard James",
+    "email": "richardjames@example.com",
+    "password": "123456",
     "speciality": "Cardiologist",
     "degree": "MBBS",
     "experience": "6 Years",
@@ -15,6 +17,8 @@
   {
     "_id": "doc2",
     "name": "Dr. Emily Larson",
+    "email": "emily@example.com",
+    "password": "123456",
     "speciality": "Gynecologist",
     "degree": "MBBS",
     "experience": "3 Years",
@@ -28,6 +32,8 @@
   {
     "_id": "doc3",
     "name": "Dr. Sarah Patel",
+    "email": "sarahpatel@example.com",
+    "password": "123456",
     "speciality": "Dermatologist",
     "degree": "MBBS",
     "experience": "1 Year",
@@ -41,6 +47,8 @@
   {
     "_id": "doc4",
     "name": "Dr. Christopher Lee",
+    "email": "christopher@example.com",
+    "password": "123456",
     "speciality": "Pediatricians",
     "degree": "MBBS",
     "experience": "2 Years",
@@ -54,6 +62,8 @@
   {
     "_id": "doc5",
     "name": "Dr. Jennifer Garcia",
+    "email": "jennifer@example.com",
+    "password": "123456",
     "speciality": "Neurologist",
     "degree": "MBBS",
     "experience": "4 Years",
@@ -67,6 +77,8 @@
   {
     "_id": "doc6",
     "name": "Dr. Andrew Williams",
+    "email": "andrew@example.com",
+    "password": "123456",
     "speciality": "Neurologist",
     "degree": "MBBS",
     "experience": "4 Years",
@@ -80,6 +92,8 @@
   {
     "_id": "doc7",
     "name": "Dr. Christopher Davis",
+    "email": "christopherdavis@example.com",
+    "password": "123456",
     "speciality": "General physician",
     "degree": "MBBS",
     "experience": "4 Years",
@@ -93,6 +107,8 @@
   {
     "_id": "doc8",
     "name": "Dr. Timothy White",
+    "email": "timothy@example.com",
+    "password": "123456",
     "speciality": "Gynecologist",
     "degree": "MBBS",
     "experience": "3 Years",
@@ -106,6 +122,8 @@
   {
     "_id": "doc9",
     "name": "Dr. Ava Mitchell",
+    "email": "avamitchell@example.com",
+    "password": "123456",
     "speciality": "Dermatologist",
     "degree": "MBBS",
     "experience": "1 Year",
@@ -119,6 +137,8 @@
   {
     "_id": "doc10",
     "name": "Dr. Jeffrey King",
+    "email": "jeffrey@example.com",
+    "password": "123456",
     "speciality": "Pediatricians",
     "degree": "MBBS",
     "experience": "2 Years",

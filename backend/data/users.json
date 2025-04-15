@@ -4,5 +4,11 @@
     "name": "Drishti Garg",
     "email": "drishti@gmail.com",
     "password": "$2b$10$w29Az38aXLWnjRMSqz/ESOJoi1kzy66Oqe9LkJzR.zF3Xg7qV482K"
+  },
+  {
+    "id": 2,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "$2b$10$vPbENdL0NuFzCfupTI5J4uHWcCIvQ.eKsfMX7eU5zrjSF4eLP80pq"
   }
 ]
