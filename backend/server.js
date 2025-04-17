@@ -1,42 +1,25 @@
-import express from "express";
-import dotenv from "dotenv";
-import userRoutes from "./routes/userRoutes.js";
-import doctorRoutes from "./routes/doctorRoutes.js";
-import patientRoutes from "./routes/patientRoutes.js";
-import appointmentRoutes from "./routes/appointmentRoutes.js";
+import express from 'express'
+import cors from 'cors'
+import 'dotenv/config'
+import connectDB from './config/mongodb.js'
+import connectCloudinary from './config/cloudinary.js'
+import adminRouter from './routes/adminRoute.js'
 
-dotenv.config();
+// app config
+const app = express()
+const port = process.env.PORT || 4000
+connectDB()
+connectCloudinary()
 
-const app = express();
-app.use(express.json());
+// middleware
+app.use(express.json())
+app.use(cors())
 
-// Routes
-app.use("/api/users", userRoutes);
-app.use("/api/doctors", doctorRoutes);
-app.use("/api/patients", patientRoutes);
-app.use("/api/appointments", appointmentRoutes);
+// API Endpoints
+app.use('/api/admin', adminRouter) // localhost:4000/api/admin
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.get('/',(req,res)=>{
+    res.send('API WORKING')
+})
 
-
-
-
-// import express from 'express'
-// import cors from 'cors'
-// import 'dotenv/config'
-
-// //App Config
-// const app = express()
-// const port = process.env.PORT || 4000
-
-// //Middlewares
-// app.use(express.json())
-// app.use(cors())
-
-// //API Endpoints
-// app.get ('/',(req,res)=>{
-//     res.send("API WORKING")
-// })
-
-// app.listen(port, ()=> console.log("Server Started", port))
+app.listen(port, ()=> console.log("Server Started", port))
