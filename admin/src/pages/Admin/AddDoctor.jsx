@@ -1,4 +1,4 @@
-import React, { useContext, useState , useRef } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import { assets } from '../../assets/assets'
 import { AdminContext } from '../../context/AdminContext'
 import { toast } from 'react-toastify'
@@ -20,7 +20,7 @@ const AddDoctor = () => {
   const [address2, setAddress2] = useState('')
 
 
-  const {backendUrl , aToken} = useContext(AdminContext)
+  const { backendUrl, aToken } = useContext(AdminContext)
 
   const scrollRef = useRef(null)
 
@@ -28,33 +28,33 @@ const AddDoctor = () => {
     e.preventDefault()
 
     try {
-      if (!docImg){
+      if (!docImg) {
         toast.error('Image Not Selcted ')
-        scrollRef.current?.scrollTo(0,0)
+        scrollRef.current?.scrollTo(0, 0)
         return;
       }
 
-      const formData  = new FormData()
+      const formData = new FormData()
 
-      formData.append("image",docImg)
-      formData.append("name",name)
-      formData.append("email",email)
-      formData.append("password",password)
-      formData.append("experience",experience)
-      formData.append("fees",Number(fee))
-      formData.append("about",about)
-      formData.append("speciality",speciality)
-      formData.append("degree",degree)
-      formData.append("address",JSON.stringify({line1:address1,line2:address2}))
+      formData.append("image", docImg)
+      formData.append("name", name)
+      formData.append("email", email)
+      formData.append("password", password)
+      formData.append("experience", experience)
+      formData.append("fees", Number(fee))
+      formData.append("about", about)
+      formData.append("speciality", speciality)
+      formData.append("degree", degree)
+      formData.append("address", JSON.stringify({ line1: address1, line2: address2 }))
       // formData.append("address2",address2)
 
-      formData.forEach((value,key)=>{
+      formData.forEach((value, key) => {
         console.log(`${key} : ${value}`);
-        
+
       })
-      
-      const {data}  = await axios.post(backendUrl+'/api/admin/add-doctor' , formData , {headers : {aToken}})
-      if(data.succes){
+
+      const { data } = await axios.post(backendUrl + '/api/admin/add-doctor', formData, { headers: { aToken } })
+      if (data.succes) {
         toast.success(data.message)
         setDocImg(false)
         setName('')
@@ -65,14 +65,14 @@ const AddDoctor = () => {
         setDegree('')
         setFee('')
         setAbout('')
-      }else{
+      } else {
         toast.error(data.message)
       }
 
     } catch (error) {
       console.log(error);
       toast.error(error.message)
-      
+
     }
 
   }
