@@ -5,7 +5,7 @@ import bcrypt, { genSalt } from "bcrypt";
 import jwt from 'jsonwebtoken'
 import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
-import appointmentModel from "../models/appointmentModel.js";
+import apointmentModel from "../models/apointmentModel.js";
 
 const registerUser = async (req, res) => {
   try {
@@ -148,7 +148,7 @@ const bookAppointment = async (req, res) => {
 
     const appointmentData = { userId, docId, userData, docData, amount: docData.fees, slotTime, slotDate, date: Date.now()};
 
-    const newAppointment = new appointmentModel(appointmentData);
+    const newAppointment = new apointmentModel(appointmentData);
     await newAppointment.save();
 
     //save new slots data in docData
@@ -166,7 +166,7 @@ const bookAppointment = async (req, res) => {
 const listAppointments = async (req, res) => {
   try {
     const { userId } = req.body;
-    const appointments = await appointmentModel.find({ userId });
+    const appointments = await apointmentModel.find({ userId });
     res.json({ success: true, appointments });
   } catch (error) {
     res.json({ success: false, message: error.message });
@@ -179,11 +179,11 @@ const listAppointments = async (req, res) => {
 const cancelAppointment = async (req, res) => {
   try {
     const { userId, appointmentId } = req.body;
-    const appointmentData = await appointmentModel.findById(appointmentId);
+    const appointmentData = await apointmentModel.findById(appointmentId);
     if (appointmentData.userId !== userId) {
       return res.json({ success: false, message:'Unauthorized action' });
     }
-    await appointmentModel.findByIdAndUpdate(appointmentId,{cancelled:true}) //jab slot cancel hoga to uska time bhi free hoga jise jme dobaara render kraana pdega qki booked hone pr ui se vo hide hota tha
+    await apointmentModel.findByIdAndUpdate(appointmentId,{cancelled:true}) //jab slot cancel hoga to uska time bhi free hoga jise jme dobaara render kraana pdega qki booked hone pr ui se vo hide hota tha
     
     //Releasing doctor slot 
     const {docId,slotDate,slotTime} = appointmentData
