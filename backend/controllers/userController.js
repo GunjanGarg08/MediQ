@@ -5,7 +5,7 @@ import bcrypt, { genSalt } from "bcrypt";
 import jwt from 'jsonwebtoken'
 import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
-import apointmentModel from "../models/apointmentModel.js";
+import appointmentModel from "../models/appointmentModel.js";
 
 const registerUser = async (req, res) => {
   try {
@@ -116,15 +116,15 @@ const updateProfile = async (req, res) => {
   }
 };
 
-//API TO BOOK APOINTMENT
+//API TO BOOK APPOINTMENT
 
-const bookApointment = async (req, res) => {
+const bookAppointment = async (req, res) => {
   try {
     const { userId, docId, slotDate, slotTime } = req.body;
-    const docData = await doctorModel.findById(docId).select("-password");
+    const docData = await doctorModel.findById(docId).select('-password');
 
     if (!docData.available) {
-      return res.json({ success: false, message: "Doctor not available" });
+      return res.json({ success: false, message: 'Doctor not available' });
     }
 
     let slots_booked = docData.slots_booked;
@@ -133,7 +133,7 @@ const bookApointment = async (req, res) => {
 
     if (slots_booked[slotDate]) {
       if (slots_booked[slotDate].includes(slotTime)) {
-        return res.json({ success: false, message: "slots not available" });
+        return res.json({ success: false, message: 'slots not available' });
       } else {
         slots_booked[slotDate].push(slotTime);
       }
@@ -142,62 +142,62 @@ const bookApointment = async (req, res) => {
       slots_booked[slotDate].push(slotTime);
     }
 
-    const userData = await userModel.findById(userId).select("-password");
+    const userData = await userModel.findById(userId).select('-password');
 
     delete docData.slots_booked;
 
-    const appoitmentData = { userId, docId, userData, docData, amount: docData.fees, slotTime, slotDate, date: Date.now(),};
+    const appointmentData = { userId, docId, userData, docData, amount: docData.fees, slotTime, slotDate, date: Date.now()};
 
-    const newApointment = new apointmentModel(appoitmentData);
-    await newApointment.save();
+    const newAppointment = new appointmentModel(appointmentData);
+    await newAppointment.save();
 
     //save new slots data in docData
     await doctorModel.findByIdAndUpdate(docId, { slots_booked });
 
-    res.json({ success: true, message: "Apointment Booked" });
+    res.json({ success: true, message: 'Appointment Booked' });
   } catch (error) {
     res.json({ success: false, message: error.message });
     console.log(error);
   }
 };
 
-//API TO GET USER APOINTMNETS FOR FRONTEND MY-APPOINTMENT PAGE
+//API TO GET USER APPOINTMENTS FOR FRONTEND MY-APPOINTMENT PAGE
 
-const listApointments = async (req, res) => {
+const listAppointments = async (req, res) => {
   try {
     const { userId } = req.body;
-    const apointments = await apointmentModel.find({ userId });
-    res.json({ success: true, apointments });
+    const appointments = await appointmentModel.find({ userId });
+    res.json({ success: true, appointments });
   } catch (error) {
     res.json({ success: false, message: error.message });
     console.log(error);
   }
 };
 
-//API TO CANCEL  APOINTMENT
+//API TO CANCEL  APPOINTMENT
 
-const cancelApointment = async (req, res) => {
+const cancelAppointment = async (req, res) => {
   try {
-    const { userId, apointmentId } = req.body;
-    const apointmentData = await apointmentModel.findById(apointmentId);
-    if (apointmentData.userId !== userId) {
+    const { userId, appointmentId } = req.body;
+    const appointmentData = await appointmentModel.findById(appointmentId);
+    if (appointmentData.userId !== userId) {
       return res.json({ success: false, message:'Unauthorized action' });
     }
-    await apointmentModel.findByIdAndUpdate(apointmentId,{cancelled:true}) //jab slot cancel hoga to uska time bhi free hoga jise jme dobaara render kraana pdega qki booked hone pr ui se vo hide hota tha
+    await appointmentModel.findByIdAndUpdate(appointmentId,{cancelled:true}) //jab slot cancel hoga to uska time bhi free hoga jise jme dobaara render kraana pdega qki booked hone pr ui se vo hide hota tha
     
     //Releasing doctor slot 
-    const {docId,slotDate,slotTime} = apointmentData
+    const {docId,slotDate,slotTime} = appointmentData
 
-    const docData = await doctorModel.findById(docId);
-    let slots_booked = docData.slots_booked
+    const doctorData = await doctorModel.findById(docId);
+    let slots_booked = doctorData.slots_booked
     slots_booked[slotDate] = slots_booked[slotDate].filter(e=> e !== slotTime)
 
     await doctorModel.findByIdAndUpdate(docId , {slots_booked})
-    res.json({success:true, message:'apointment cancel'})
+    res.json({success:true, message:'appointment cancel'})
   } catch (error) {
     res.json({ success: false, message: error.message });
     console.log(error);
   }
 };
 
-export { registerUser, loginUser, getProfile, updateProfile, bookApointment, listApointments, cancelApointment  };
+export { registerUser, loginUser, getProfile, updateProfile, bookAppointment, listAppointments, cancelAppointment  };

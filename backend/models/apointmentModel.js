@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
-
-const apointmentSchema = new Schema({
+const appointmentSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   docId: { type: String, required: true },
   slotDate: { type: String, required: true },
@@ -13,9 +11,9 @@ const apointmentSchema = new Schema({
   date: { type: Number, required: true },
   cancelled: { type: Boolean, default: false },
   payment: { type: Boolean, default: false },
-  isCompleted: { type: Boolean, default: false },
-});
+  isCompleted: { type: Boolean, default: false }
+})
 
-const apointmentModel  = mongoose.model('apointment',apointmentSchema)
+const appointmentModel  = mongoose.models.appointment || mongoose.model('appointment',appointmentSchema)
 
-export default apointmentModel;
+export default appointmentModel
