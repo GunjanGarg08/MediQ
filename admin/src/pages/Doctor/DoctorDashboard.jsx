@@ -59,9 +59,9 @@ const DoctorDashboard = () => {
                   <p className='text-gray-600'>{slotDateFormat(item.slotDate)}</p>
                 </div>
                 {
-                item.cancelled ? (<p className='text-red-500  font-medium'>Cancelled</p>)
+                item.cancelled ? (<p className='text-red-400 text-xs font-medium'>Cancelled</p>)
                   : item.isCompleted
-                    ? <p className='text-green-500 font-medium'>Completed</p>
+                    ? <p className='text-green-500  text-xs font-medium'>Completed</p>
                     : <div className='flex'>
                       <img onClick={() => cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />
                       <img onClick={() => completeAppointment(item._id)} className='w-10 cursor-pointer' src={assets.tick_icon} alt="" />

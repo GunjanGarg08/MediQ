@@ -16,7 +16,7 @@ const AdminContextProvider = (props) => {
     const getAllDoctors = async () => {
         try {
             const response = await axios.get(backendUrl + '/api/admin/all-doctors', { headers: { aToken } })
-            if (response.data.succes) {
+            if (response.data.success) {
                 setDoctors(response.data.doctor)
                 console.log(response.data);
             }
@@ -45,7 +45,7 @@ const AdminContextProvider = (props) => {
     const getAllApointments = async () => {
         try {
             const { data } = await axios.get(backendUrl + '/api/admin/appointments', { headers: { aToken } })
-            if (data.succes) {
+            if (data.success) {
                 setAppointments(data.appointments)
                 console.log(data.appointments)
             } else {
@@ -64,7 +64,7 @@ const AdminContextProvider = (props) => {
             const { data } = await axios.post(backendUrl + '/api/admin/cancel-appointment', { appointmentId }, { headers: { aToken } })
             console.log(data);
 
-            if (data.succes) {
+            if (data.success) {
                 toast.success(data.message)
                 getAllApointments()
             } else {
@@ -80,7 +80,7 @@ const AdminContextProvider = (props) => {
     const getDashData = async () => {
         try {
             const { data } = await axios.get(backendUrl + '/api/admin/dashboard', { headers: { aToken } })
-            if (data.succes) {
+            if (data.success) {
                 setDashData(data.dashData)
                 console.log(data.dashData)
             } else {
